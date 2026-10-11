@@ -220,11 +220,121 @@ int[] numbers = { 8, 3, 12, 5, 2, 9, 4, 7 };
         Console.WriteLine(g.Key + ": " + string.Join(", ", enrId));
     }
 
+    Console.WriteLine("--- Task 17 ---");
 
+    var enDetail = enrollments.Join(students,
+        en => en.StudentId,
+        stu => stu.Id,
+        (en, stu) => new
+        {
+            EnId = en.Id,
+            StudName = stu.Name,
+            Grade = en.Grade
+        });
 
+    foreach (var en in enDetail)
+    {
+        Console.Write(en.EnId + "/" + en.StudName + "/" + en.Grade + "   ");
+    }
 
+    Console.WriteLine();
+    Console.WriteLine("--- Task 18 ---");
 
+    var courseDetails = courses.Join(enrollments,
+        c => c.Id,
+        en => en.CourseId,
+        (c, en) => new
+        {
+            cTitle = c.Title,
+            StudId = en.StudentId,
+            enGrade = en.Grade
+        })
+        .Where(g => g.enGrade >= 5)
+        .GroupBy(g => g.cTitle);
 
+    foreach (var g in courseDetails)
+    {
+        var det = g.Select(i => i.StudId + "/" + i.enGrade);
+        Console.Write(g.Key + ": " + string.Join(", ", det) + "   ");
+    }
+
+    Console.WriteLine();
+    Console.WriteLine("--- Task 19 ---");
+
+    var report = enrollments.Join(students,
+            en => en.StudentId,
+            s => s.Id,
+            (en, s) => new
+            {
+                StName = s.Name,
+                EId = en.Id,
+                EGrades = en.Grade,
+                ECourseId = en.CourseId
+            })
+        .Join(courses,
+            com => com.ECourseId,
+            c => c.Id,
+            (com, c) => new
+            {
+                com.EId,
+                com.StName,
+                cTitle = c.Title,
+                Grade = com.EGrades
+            })
+        .Where(g => g.Grade >= 5)
+        .OrderBy(en => en.EId);
+
+    foreach (var x in report)
+    {
+        Console.Write(x.StName + "/" + x.cTitle + "/" + x.Grade + "   ");
+    }
+
+    Console.WriteLine();
+    Console.WriteLine("--- Task 20 ---");
+
+    var allDetails = enrollments.Join(students,
+        en => en.StudentId,
+        s => s.Id,
+        (en, s) => new
+        {
+            EId = en.Id,
+            SName = s.Name,
+            EGrade = en.Grade,
+            ECourseId = en.CourseId
+        })
+        .Join(courses,
+            comb => comb.ECourseId,
+            c => c.Id,
+            (comb, c) => new
+            {
+                comb.EId,
+                comb.SName,
+                Grade = comb.EGrade,
+                CourseId = c.Id,
+                cTitle = c.Title
+            })
+        .GroupBy(g => new
+        {
+            g.CourseId,
+            g.cTitle
+        })
+        .OrderBy(x => x.Key.CourseId)
+        .Select(g =>
+        {
+            var highE = g.OrderBy(x => -x.Grade).First();
+
+            return new
+            {
+                CTitle = g.Key.cTitle,
+                StudentN = highE.SName,
+                Grade = highE.Grade
+            };
+        });
+
+    foreach (var x in allDetails)
+    {
+        Console.Write(x.CTitle + "/" + x.StudentN + "/" + x.Grade + "   ");
+    }
 
     public record Student(int Id, string Name,
         int Age, string City);
