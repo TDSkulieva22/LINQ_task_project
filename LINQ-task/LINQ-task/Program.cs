@@ -35,7 +35,7 @@ int[] numbers = { 8, 3, 12, 5, 2, 9, 4, 7 };
 
     Console.WriteLine("--- Task 1 ---");
 
-    int[] square = numbers.Select(x => x * x).ToArray();
+    var square = numbers.Select(x => x * x);
 
     foreach (var num in square)
     {
@@ -54,7 +54,7 @@ int[] numbers = { 8, 3, 12, 5, 2, 9, 4, 7 };
 
     Console.WriteLine("--- Task 3 ---");
     
-    int[] evenNumbers = numbers.Where(x => x % 2 == 0).ToArray();
+    var evenNumbers = numbers.Where(x => x % 2 == 0);
 
     foreach (var num in evenNumbers)
     {
@@ -64,11 +64,97 @@ int[] numbers = { 8, 3, 12, 5, 2, 9, 4, 7 };
     Console.WriteLine();
     Console.WriteLine("--- Task 4 ---");
 
-    var res = students.Where(s => s.City == "Burgas" && s.Age >= 18).ToArray();
+    var res = students.Where(s => s.City == "Burgas" && s.Age >= 18);
 
     foreach (var result in res)
     {
         Console.Write(result.Name + "(Id " + result.Id + ")   ");
+    }
+
+    Console.WriteLine();
+    Console.WriteLine("--- Task 5 ---");
+
+    var aged = students.Where(s => s.Age >= 18).Select(s => s.Name);
+
+    foreach (var stud in aged)
+    {
+        Console.Write(stud + "  ");
+    }
+
+    Console.WriteLine();
+    Console.WriteLine("--- Task 6 ---");
+
+    var n = numbers.OrderBy(x => x);
+    foreach (var num in n)
+    {
+        Console.Write(num + " ");
+    }
+
+    Console.WriteLine();
+    Console.WriteLine("--- Task 7 ---");
+
+    var all = students.Where(s => s.Age >= 18).OrderBy(x => x.Age).Select(x => x.Name);
+
+    foreach (var stu in all)
+    {
+        Console.Write(stu + "  ");
+    }
+
+    Console.WriteLine();
+    Console.WriteLine("--- Task 8 ---");
+
+    var sorted = numbers.OrderBy(x => -x);
+
+    foreach (var num in sorted)
+    {
+        Console.Write(num + " ");
+    }
+    
+    Console.WriteLine();
+    Console.WriteLine("--- Task 9 ---");
+
+    var person = students.First(x => x.City == "Sofia");
+
+    Console.Write(person.Name + " (Id " + person.Id + ")");
+
+    Console.WriteLine();
+    Console.WriteLine("--- Task 10 ---");
+
+    try
+    {
+        var per = students.First(x => x.City == "Plovdiv");
+    }
+    catch(InvalidOperationException ex)
+    {
+        Console.WriteLine($"Exception: {ex.GetType().Name}");
+        Console.WriteLine($"Message: {ex.Message}");
+    }
+
+    Console.WriteLine("--- Task 11 ---");
+    
+    var p = students.Single(x => x.Id == 4);
+
+    Console.Write(p.Name + " (Id " + p.Id + ")");
+
+    Console.WriteLine();
+    Console.WriteLine("--- Task 12 ---");
+
+    try
+    {
+        var many = students.Single(s => s.Age == 18);
+    }
+    catch(InvalidOperationException ex)
+    {
+        Console.WriteLine($"Query 1 error: {ex.Message}");
+    }
+
+    try
+    {
+        var zero = students.Single(s => s.Age == 99);
+    }
+    catch (InvalidOperationException ex)
+    {
+        Console.WriteLine($"Query 2 error: {ex.Message}");
     }
 
 
