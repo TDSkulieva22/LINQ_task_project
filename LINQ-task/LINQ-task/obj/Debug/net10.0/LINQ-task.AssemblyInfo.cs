@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LINQ-task")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+18c944d70da50e59327b8ca6d1942bba916f6ccd")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9d1dbb3e5f15ed3731eff7001828a50c29cd332e")]
 [assembly: System.Reflection.AssemblyProductAttribute("LINQ-task")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LINQ-task")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

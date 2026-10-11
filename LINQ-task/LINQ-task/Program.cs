@@ -157,6 +157,69 @@ int[] numbers = { 8, 3, 12, 5, 2, 9, 4, 7 };
         Console.WriteLine($"Query 2 error: {ex.Message}");
     }
 
+    Console.WriteLine("--- Task 13 ---");
+
+    var n1 = numbers.First(n => n > 7);
+
+    Console.WriteLine("Query 1 error: " + n1);
+
+    try
+    {
+        var n2 = numbers.Single(n => n > 7);
+    }
+    catch (InvalidOperationException ex)
+    {
+        Console.WriteLine($"Query 2 error: {ex.Message}");
+    }
+
+    var n3 = numbers.Single(n => n > 10);
+
+    Console.WriteLine("Query 3 error: " + n3);
+
+    try
+    {
+        var n4 = numbers.First(n => n < 0);
+    }
+    catch (InvalidOperationException ex)
+    {
+        Console.WriteLine($"Query 4 error: {ex.Message}");
+    }
+
+    Console.WriteLine("--- Task 14 ---");
+
+    var group = students.GroupBy(x => x.City);
+
+    foreach (var g in group)
+    {
+        Console.Write(g.Key + ": ");
+        
+        var names =  g.Select(x => x.Name);
+        
+        Console.Write(string.Join(", ", names));
+        Console.WriteLine();
+    }
+
+    Console.WriteLine("--- Task 15 ---");
+
+    var groupAge = students.GroupBy(x => x.Age >= 18);
+
+    foreach (var g in groupAge)
+    {
+        string l = g.Key ? "Adults" : "Minors";
+        var names = g.Select(x => x.Name);
+        Console.WriteLine(l + ": " +  string.Join(", ", names));
+    }
+
+    Console.WriteLine("--- Task 16 ---");
+
+    var enr = enrollments.Where(x => x.Grade >= 5).GroupBy(x => x.CourseId);
+
+    foreach (var g in enr)
+    {
+        var enrId = g.Select(x => x.Id);
+        Console.WriteLine(g.Key + ": " + string.Join(", ", enrId));
+    }
+
 
 
 
